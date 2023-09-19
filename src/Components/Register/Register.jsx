@@ -1,5 +1,11 @@
 import React from 'react';
 import './Register.css'
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import app from '../../Shared/Firebase/Firebase.config';
+
+
+
+const auth = getAuth(app);
 
 const Register = () => {
 
@@ -9,7 +15,13 @@ const Register = () => {
         const name =form.name.value;
         const email =form.email.value;
         const password = form.password.value;
-        console.log(name,email,password);
+        // console.log(name,email,password);
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(result =>{
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(error =>console.log(error))
     }
 
     return (
