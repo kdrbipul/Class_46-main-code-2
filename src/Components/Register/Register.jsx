@@ -18,15 +18,15 @@ const Register = () => {
                 <h4 className='text-center'>Please Register Here</h4>
                 <div className="mb-3">
                     <label className="form-label">Name</label>
-                    <input type="name" name="name" className="form-control"  aria-describedby="emailHelp" />
+                    <input type="name" name="name" className="form-control"  aria-describedby="emailHelp" required />
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Email address</label>
-                    <input type="email" name='email' className="form-control"  aria-describedby="emailHelp" />
+                    <input type="email" name='email' className="form-control"  aria-describedby="emailHelp" required />
                 </div>
                 <div className="mb-3">
                     <label  className="form-label">Password</label>
-                    <input type="password" name='password' className="form-control"  />
+                    <input type="password" name='password' className="form-control" required  />
                 </div>
                 <div className="mb-3 form-check">
                     <input type="checkbox" name="checkbox" className="form-check-input"  />
