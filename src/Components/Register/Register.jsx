@@ -2,10 +2,20 @@ import React from 'react';
 import './Register.css'
 
 const Register = () => {
+
+    const handleOnSubmit=(event)=>{
+        event.preventDefault();
+        const form = event.target;
+        const name =form.name.value;
+        const email =form.email.value;
+        const password = form.password.value;
+        console.log(name,email,password);
+    }
+
     return (
         <div className='container'>
-            <form className='w-50 mx-auto my-5 shadow p-5 background_col'>
-            <h4 className='text-center'>Please Register Here</h4>
+            <form onSubmit={handleOnSubmit} className='w-50 mx-auto my-5 shadow p-5 background_col rounded-3'>
+                <h4 className='text-center'>Please Register Here</h4>
                 <div className="mb-3">
                     <label className="form-label">Name</label>
                     <input type="name" name="name" className="form-control"  aria-describedby="emailHelp" />
