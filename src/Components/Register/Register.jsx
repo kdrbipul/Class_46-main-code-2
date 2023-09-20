@@ -1,7 +1,8 @@
-import React from 'react';
+
 import './Register.css'
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import app from '../../Shared/Firebase/Firebase.config';
+import { useState } from 'react';
 
 
 
@@ -9,17 +10,42 @@ const auth = getAuth(app);
 
 const Register = () => {
 
+    const [passwordError, setPasswordError] = useState('');
+
     const handleOnSubmit=(event)=>{
         event.preventDefault();
         const form = event.target;
-        const name =form.name.value;
+        // const name =form.name.value;
         const email =form.email.value;
         const password = form.password.value;
+
+        // Password Validation
+        if(!/(?=.*[A-Z].*[A-Z])/.test(password)){
+            setPasswordError('Please Provide At Least Two Uppercase');
+            return false;
+        }
+        
+        if(!/(?=.*[a-z])/.test(password)){
+            setPasswordError('Please Provide At Least One Lowercase')
+            return false;
+        }
+        if(!/(?=.*[!@#$%^&*()?,?/"';:={}+_-])/.test(password)){
+            setPasswordError('Please Provide Any Of !@#$%^&*()?,?/" Special');
+            return false;
+        }
+        if(password.length <8){
+            setPasswordError('Please Provide More Than 8 Characters');
+            return false;
+        }
+        setPasswordError('');
+
+
         // console.log(name,email,password);
         createUserWithEmailAndPassword(auth, email, password)
         .then(result =>{
             const user = result.user;
             console.log(user);
+            form.reset();
         })
         .catch(error =>console.log(error))
     }
@@ -45,6 +71,7 @@ const Register = () => {
                     <label className="form-check-label" >Check me out</label>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
+                <p className='text-danger'>{passwordError}</p>
             </form>
         </div>
     );
