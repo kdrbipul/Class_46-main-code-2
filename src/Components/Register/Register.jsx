@@ -9,7 +9,7 @@ import { useState } from 'react';
 const auth = getAuth(app);
 
 const Register = () => {
-
+    const [logSuccess, setLogSuccess] = useState(false);
     const [passwordError, setPasswordError] = useState('');
 
     const handleOnSubmit=(event)=>{
@@ -45,6 +45,7 @@ const Register = () => {
         .then(result =>{
             const user = result.user;
             console.log(user);
+            setLogSuccess(true)
             form.reset();
         })
         .catch(error =>console.log(error))
@@ -70,7 +71,10 @@ const Register = () => {
                     <input type="checkbox" name="checkbox" className="form-check-input"  />
                     <label className="form-check-label" >Check me out</label>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary w-100">Submit</button>
+                {
+                    logSuccess && <p className='text-success'>Registration Successful</p>
+                }
                 <p className='text-danger'>{passwordError}</p>
             </form>
         </div>
