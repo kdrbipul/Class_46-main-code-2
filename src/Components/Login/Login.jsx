@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from '../../Shared/Firebase/Firebase.config';
+import { Link } from 'react-router-dom';
 
 const auth = getAuth(app);
 
@@ -21,11 +22,11 @@ const Login = () => {
         signInWithEmailAndPassword(auth,email,password)
         .then(result=>{
             const user = result.user;
-            // console.log(user);
+            console.log(user);
             setLogSuccess(true);
             form.reset();
         })
-        .catch (error=>console.log(error))
+        .catch (error => console.log(error))
     }
 
     return (
@@ -40,10 +41,11 @@ const Login = () => {
                     <label  className="form-label">Password</label>
                     <input type="password" name='password' className="form-control" required  />
                 </div>
-                <div className="mb-3 form-check">
+                {/* <div className="mb-3 form-check">
                     <input type="checkbox" name="checkbox" className="form-check-input"  />
                     <label className="form-check-label" >Check me out</label>
-                </div>
+                </div> */}
+                <p>New User In a website <Link to='/register'>Please Register</Link></p>
                 <button type="submit" className="btn btn-primary w-100">Login</button>
                 {
                     logSuccess && <p className='text-danger'>Successfully Login</p>

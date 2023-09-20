@@ -1,8 +1,9 @@
 
 import './Register.css'
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
 import app from '../../Shared/Firebase/Firebase.config';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -45,10 +46,18 @@ const Register = () => {
         .then(result =>{
             const user = result.user;
             console.log(user);
-            setLogSuccess(true)
+            setLogSuccess(true);
+            verifyEmail();
             form.reset();
         })
         .catch(error =>console.log(error))
+    }
+
+    const verifyEmail = () =>{
+        sendEmailVerification(auth.currentUser)
+        .then(()=>{
+            alert('Please verify your email')
+        })
     }
 
     return (
@@ -71,6 +80,7 @@ const Register = () => {
                     <input type="checkbox" name="checkbox" className="form-check-input"  />
                     <label className="form-check-label" >Check me out</label>
                 </div>
+                <p>Already have an account <Link to='/login'>Please login</Link></p>
                 <button type="submit" className="btn btn-primary w-100">Submit</button>
                 {
                     logSuccess && <p className='text-success'>Registration Successful</p>
